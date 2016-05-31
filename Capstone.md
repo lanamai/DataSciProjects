@@ -59,15 +59,25 @@ str(aso)
 
 ##### count blanks in each column
 sum((nchar(aso$AnimalID)       == 0) == TRUE)
+
 sum((nchar(aso$Name)           == 0) == TRUE)    # 7691  (curate to not named)
+
 sum((nchar(aso$DateTime)       == 0) == TRUE)
+
 sum((nchar(aso$OutcomeType)    == 0) == TRUE)
+
 sum((nchar(aso$OutcomeSubtype) == 0) == TRUE)    # 13612 (not used)
+
 sum((nchar(aso$AnimalType)     == 0) == TRUE)
+
 sum((nchar(aso$SexuponOutcome) == 0) == TRUE)    # 1     (drop)
+
 sum((nchar(aso$AgeuponOutcome) == 0) == TRUE)    # 18    (drop)
+
 sum((nchar(aso$Breed)          == 0) == TRUE)
+
 sum((nchar(aso$Color)          == 0) == TRUE)
+
 
 ##### Drop rows with missing values for attributes to be used for analysis
 aso <- subset(aso, (nchar(aso$SexuponOutcome) != 0))
@@ -234,8 +244,11 @@ summary(aso$AgeinMths)
 
 ##### Group age into lifestage
 aso$LifeStage <- ifelse(aso$AgeinMths <= 3, 'Baby',
+
                      ifelse((aso$AgeinMths > 3 & aso$AgeinMths <= 12), 'Adolescent',
-                            ifelse((aso$AgeinMths > 12 & aso$AgeinMths <= 96), 'Adult', 'Senior'))) 
+
+                            ifelse((aso$AgeinMths > 12 & aso$AgeinMths <= 96), 'Adult', 'Senior')))
+ 
                                    
 ##### count in each lifestage category
 
@@ -584,8 +597,11 @@ anova(model1, test='Chisq')
 ##### R outputs probabilities in P(y=1/x) form.
 ##### Decision boundary is 0.5.  ie. if P(y=1/x) > 0.5, then y=1 (adopt), else y=0.
 fit1 <- predict(model1, newdata=aso2_test, type='response')
+
 fit1 <- ifelse(fit1 > 0.5, 1, 0)
+
 ClassifyErr <- mean(fit1 != aso2_test$Adopted)
+
 print(paste('Accuracy ',1-ClassifyErr))
 ###### "Accuracy  0.710243902439024"
 
@@ -687,8 +703,11 @@ anova(model2, test='Chisq')
 ##### R outputs probabilities in P(y=1/x) form.
 ##### Decision boundary is 0.5.  ie. if P(y=1/x) > 0.5, then y=1 (adopt), else y=0.
 fit2 <- predict(model2, newdata=aso2_test, type='response')
+
 fit2 <- ifelse(fit2 > 0.5, 1, 0)
+
 ClassifyErr <- mean(fit2 != aso2_test$Adopted)
+
 print(paste('Accuracy ',1-ClassifyErr))
 ###### "Accuracy  0.704"
 
