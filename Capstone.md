@@ -1,3 +1,5 @@
+
+
 #### CKME136    - Data Analytics, Capstone Course
 #### Instructor - Dr. Atakan Erdem
 #### Author     - Sue Lana Mai     
@@ -57,13 +59,13 @@ str(aso)
 
 ##### count blanks in each column
 sum((nchar(aso$AnimalID)       == 0) == TRUE)
-sum((nchar(aso$Name)           == 0) == TRUE)    ###### 7691  (curate to not named)
+sum((nchar(aso$Name)           == 0) == TRUE)    # 7691  (curate to not named)
 sum((nchar(aso$DateTime)       == 0) == TRUE)
 sum((nchar(aso$OutcomeType)    == 0) == TRUE)
-sum((nchar(aso$OutcomeSubtype) == 0) == TRUE)    ###### 13612 (not used)
+sum((nchar(aso$OutcomeSubtype) == 0) == TRUE)    # 13612 (not used)
 sum((nchar(aso$AnimalType)     == 0) == TRUE)
-sum((nchar(aso$SexuponOutcome) == 0) == TRUE)    ###### 1     (drop)
-sum((nchar(aso$AgeuponOutcome) == 0) == TRUE)    ###### 18    (drop)
+sum((nchar(aso$SexuponOutcome) == 0) == TRUE)    # 1     (drop)
+sum((nchar(aso$AgeuponOutcome) == 0) == TRUE)    # 18    (drop)
 sum((nchar(aso$Breed)          == 0) == TRUE)
 sum((nchar(aso$Color)          == 0) == TRUE)
 
@@ -100,7 +102,7 @@ factor(aso$Color)[1:10]
 ###### 366 Levels: Agouti Agouti/Brown Tabby Apricot Apricot/Brown Apricot/White ... Yellow/Yellow
 
 ##### count of SexuponOUtcome with value 'unknown'
-sum((aso$SexuponOutcome == 'Unknown') == TRUE)   ###### 1089 
+sum((aso$SexuponOutcome == 'Unknown') == TRUE)   # 1089 
 
 ##### Drop rows with 'Unknown' for SexuponOutcome
 aso <- subset(aso, (aso$SexuponOutcome != 'Unknown'))
@@ -117,51 +119,81 @@ factor(aso$SexuponOutcome)[1:10]
 
 ##### Named: yes, no
 aso$Named[nchar(aso$Name) != 0] <- 'yes'
+
 aso$Named[nchar(aso$Name) == 0] <- 'no'
 
 
-num.Named     = sum(aso$Named=='yes')        ###### 19000
-num.NotNamed  = sum(aso$Named=='no')         ###### 6621
-num.TotNamed  = num.Named  + num.NotNamed    ###### 25621
-prob.Named    = num.Named  / num.TotNamed    ###### 0.7415792
-prob.NotNamed = num.NotNamed / num.TotNamed  ###### 0.2584208
+num.Named     = sum(aso$Named=='yes')        # 19000
+
+num.NotNamed  = sum(aso$Named=='no')         # 6621
+
+num.TotNamed  = num.Named  + num.NotNamed    # 25621
+
+prob.Named    = num.Named  / num.TotNamed    # 0.7415792
+
+prob.NotNamed = num.NotNamed / num.TotNamed  # 0.2584208
+
 
 ##### Adopted: 1-yes, 0-no
 aso$Adopted <- ifelse(grepl('Adoption', aso$OutcomeType), 1, 0)
+
                      
-num.Adopted     = sum(aso$Adopted==1)       ###### 10769
-num.NotAdopted  = sum(aso$Adopted==0)        ###### 14852
-num.TotAdopted  = num.Adopted  + num.NotAdopted ###### 25621
-prob.Adopted    = num.Adopted  / (num.Adopted  + num.NotAdopted)   ###### 0.4203193
-prob.NotAdopted = num.NotAdopted / (num.Adopted  + num.NotAdopted) ###### 0.5796807
+num.Adopted     = sum(aso$Adopted==1)           # 10769
+
+num.NotAdopted  = sum(aso$Adopted==0)           # 14852
+
+num.TotAdopted  = num.Adopted  + num.NotAdopted # 25621
+
+prob.Adopted    = num.Adopted  / (num.Adopted  + num.NotAdopted)   # 0.4203193
+
+prob.NotAdopted = num.NotAdopted / (num.Adopted  + num.NotAdopted) # 0.5796807
+
 
 ##### Sex: Male, Female
 aso$Sex <- ifelse(grepl('Male', aso$SexuponOutcome), 'Male', 'Female')
+
                    
-num.Male     = sum(aso$Sex == 'Male')       ###### 13298
-num.Female   = sum(aso$Sex == 'Female')     ###### 12323
-num.TotSex   = num.Male + num.Female        ###### 25621
-prob.Male    = num.Male  / num.TotSex       ###### 0.5190274
-prob.Female  = num.Female / num.TotSex      ###### 0.4809726
+num.Male     = sum(aso$Sex == 'Male')       # 13298
+
+num.Female   = sum(aso$Sex == 'Female')     # 12323
+
+num.TotSex   = num.Male + num.Female        # 25621
+
+prob.Male    = num.Male  / num.TotSex       # 0.5190274
+
+prob.Female  = num.Female / num.TotSex      # 0.4809726
+
 
 
 ##### Intact: Intact, Sterile, 2-unknown
 aso$Intact <- ifelse(grepl('Intact', aso$SexuponOutcome), 'Intact', 'Sterile')
+
                     
-num.Intact     = sum(aso$Intact == 'Intact')         ###### 7023
-num.NotIntact  = sum(aso$Intact == 'Sterile')        ###### 18598
-num.TotIntact  = num.Intact  + num.NotIntact       ###### 25621
-prob.Intact    = num.Intact  / num.TotIntact       ###### 0.2741111
-prob.NotIntact   = num.NotIntact / num.TotIntact   ###### 0.7258889
+num.Intact     = sum(aso$Intact == 'Intact')       # 7023
+
+num.NotIntact  = sum(aso$Intact == 'Sterile')      # 18598
+
+num.TotIntact  = num.Intact  + num.NotIntact       # 25621
+
+prob.Intact    = num.Intact  / num.TotIntact       # 0.2741111
+
+prob.NotIntact   = num.NotIntact / num.TotIntact   # 0.7258889
+
 
 ##### PureBred: yes, no
 aso$PureBred <- ifelse(grepl('Mix', aso$Breed), 'no', 'yes')
 
-num.PureBred     = sum(aso$PureBred == 'yes')         ###### 4407
-num.NotPureBred  = sum(aso$PureBred=='no')            ###### 22214
-num.TotPureBred  = num.PureBred  + num.NotPureBred    ###### 25621
-prob.PureBred    = num.PureBred  / num.TotPureBred     ###### 0.1720073
-prob.NotPureBred = num.NotPureBred / num.TotPureBred   ###### 0.8279927
+
+num.PureBred     = sum(aso$PureBred == 'yes')          # 4407
+
+num.NotPureBred  = sum(aso$PureBred=='no')             # 22214
+
+num.TotPureBred  = num.PureBred  + num.NotPureBred     # 25621
+
+prob.PureBred    = num.PureBred  / num.TotPureBred     # 0.1720073
+
+prob.NotPureBred = num.NotPureBred / num.TotPureBred   # 0.8279927
+
 
 ##### Age - Convert to common scales of days
 ##### Get the time value:
@@ -206,10 +238,15 @@ aso$LifeStage <- ifelse(aso$AgeinMths <= 3, 'Baby',
                             ifelse((aso$AgeinMths > 12 & aso$AgeinMths <= 96), 'Adult', 'Senior'))) 
                                    
 ##### count in each lifestage category
-sum((aso$LifeStage=='Baby')==TRUE)        ###### 7487
-sum((aso$LifeStage=='Adolescent')==TRUE)  ###### 7423
-sum((aso$LifeStage=='Adult')==TRUE)       ###### 9233
-sum((aso$LifeStage=='Senior')==TRUE)      ###### 1478
+
+sum((aso$LifeStage=='Baby')==TRUE)        # 7487
+
+sum((aso$LifeStage=='Adolescent')==TRUE)  # 7423
+
+sum((aso$LifeStage=='Adult')==TRUE)       # 9233
+
+sum((aso$LifeStage=='Senior')==TRUE)      # 1478
+
 
 ##### Convert LifeStage groups to binary attributes
 aso$Baby <- ifelse(aso$LifeStage == 'Baby', 'yes', 'no')
@@ -306,21 +343,21 @@ anova(model, test='Chisq')
 ##### - Variables Baby and Adolescent have significant effect on model
 ##### - Adult and Senior are insignificant
 
-# Simplify model by making one attribute to indicate Child (baby, adolescent)
-# or not (adult or senior)
+##### Simplify model by making one attribute to indicate Child (baby, adolescent)
+##### or not (adult or senior)
 aso$Child <- ifelse((aso$AgeinMths <= 3 & aso$AgeinMths <= 12), 'yes', 'no')
 
 ######--------------------------------------------------------------------#
 ######--------------------------------------------------------------------#
 
-## Logistic Modelling dataset
-# aso2 <- subset(aso, select=c(AnimalID, Named, Adopted, AnimalType,
-#               Sex, Intact, PureBred, AgeinMths, LifeStage, Child))
+##### Logistic Modelling dataset
+##### aso2 <- subset(aso, select=c(AnimalID, Named, Adopted, AnimalType,
+#####               Sex, Intact, PureBred, AgeinMths, LifeStage, Child))
 
-# Export cleaned aso2 file to csv file for further analysis
-# write.csv(aso2, file='aso2.csv')
+##### Export cleaned aso2 file to csv file for further analysis
+##### write.csv(aso2, file='aso2.csv')
 
-# from saved data of previous 2 statements (commented out after 1st run) 
+##### from saved data of previous 2 statements (commented out after 1st run) 
 aso2 <- read.csv("aso2.csv", header = TRUE, stringsAsFactors = FALSE)
 
 ######--------------------------------------------------------------------#
@@ -337,7 +374,7 @@ str(aso2)
 ###### $ LifeStage : chr  "Adolescent" "Adolescent" "Adult" "Baby" ...
 ###### $ Child     : chr  "no" "no" "no" "yes" ...
 
-# identify unique values
+##### identify unique values
 factor(aso$Adopted)[1:10]
 ###### [1] 0 0 1 0 0 0 0 1 1 1
 ###### Levels: 0 1
@@ -360,7 +397,7 @@ factor(aso$Child)[1:10]
 ###### [1] no  no  no  yes no  yes yes no  no  no 
 ###### Levels: no yes
 
-# Check to ensure no missing values
+##### Check to ensure no missing values
 sum(nchar(aso2$AnimalID) == 0)    
 sum(nchar(aso2$Named) == 0)       
 summary(aso2$Adopted)  
@@ -511,25 +548,25 @@ summary(model1,corr=T)
     
 ##### Deviance table analysis
 anova(model1, test='Chisq')
-# Analysis of Deviance Table
-# 
-# Model: binomial, link: logit
-# 
-# Response: Adopted
-# 
-# Terms added sequentially (first to last)
-# 
-# 
-#            Df Deviance Resid. Df Resid. Dev  Pr(>Chi)    
-# NULL                       20495      27886              
-# Named       1    854.5     20494      27032 < 2.2e-16 ***
-# AnimalType  1     66.5     20493      26965 3.431e-16 ***
-# Sex         1     23.2     20492      26942 1.473e-06 ***
-# Intact      1   4663.7     20491      22279 < 2.2e-16 ***
-# PureBred    1     10.5     20490      22268  0.001203 ** 
-# Child       1   1776.0     20489      20492 < 2.2e-16 ***
-#   ---
-# Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+###### Analysis of Deviance Table
+###### 
+###### Model: binomial, link: logit
+###### 
+###### Response: Adopted
+###### 
+###### Terms added sequentially (first to last)
+###### 
+###### 
+######            Df Deviance Resid. Df Resid. Dev  Pr(>Chi)    
+###### NULL                       20495      27886              
+###### Named       1    854.5     20494      27032 < 2.2e-16 ***
+###### AnimalType  1     66.5     20493      26965 3.431e-16 ***
+###### Sex         1     23.2     20492      26942 1.473e-06 ***
+###### Intact      1   4663.7     20491      22279 < 2.2e-16 ***
+###### PureBred    1     10.5     20490      22268  0.001203 ** 
+###### Child       1   1776.0     20489      20492 < 2.2e-16 ***
+######   ---
+###### Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ##### Interpretation: Analysis of deviance table 
 ##### - Deviance col is diff between models starting with null, then
@@ -675,16 +712,20 @@ exp(cbind(OR=coef(model3), confint(model3)))
 ##### The closer AUC is to 1 (1 being perfect), the better the 
 ##### predictive ability of the model.
 library(ROCR)
+
 p <- predict(model2, newdata=aso2_test, type='response')
+
 pr <- prediction(p, aso2_test$Adopted)
+
 prf <- performance(pr, measure='tpr', x.measure='fpr')
+
 plot(prf)
 
 auc <- performance(pr, measure='auc')
+
 auc <- auc@y.values[[1]]
+
 auc
-
-
 
 
 
